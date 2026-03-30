@@ -3,91 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>উইলস সাহিত্য ক্লাব</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Anek+Bangla:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>উইলসহিত্য ক্লাব | শব্দের ক্যানভাসে স্বপ্নের বুনন</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Anek+Bangla:wght@300;500;700&display=swap');
+
+        :root {
+            --paper-bg: #EAE3D2;
+            --paper-light: #F4EFE6;
+            --ink-black: #2C2825;
+            --ink-red: #8B1E0B;
+            --border-brown: #A68A61;
+        }
+
+        /* ৭৫% গ্লোবাল স্কেল ও সেন্টারিং লজিক */
+        html, body {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background-color: var(--paper-bg);
+            overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        body {
+            transform: scale(0.75);
+            transform-origin: center center;
+            position: relative;
+            font-family: 'Tiro Bangla', serif;
+        }
+
+        /* ব্যাকগ্রাউন্ড টেক্সচার */
+        body::before {
+            content: ""; position: absolute; width: 200%; height: 200%;
+            background: url('https://www.transparenttextures.com/patterns/rice-paper-2.png');
+            opacity: 0.6; z-index: -2; pointer-events: none;
+        }
+
+        /* লণ্ঠন আলো (Ambient Glow) */
+        .ambient-glow {
+            position: absolute; width: 1200px; height: 1200px;
+            background: radial-gradient(circle, rgba(255,245,215,0.22) 0%, transparent 70%);
+            border-radius: 50%; z-index: -1; left: 50%; top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* পাণ্ডুলিপি কার্ড (Manuscript) */
+        .manuscript-card {
+            background: linear-gradient(145deg, var(--paper-light) 0%, #E8DFCA 100%);
+            width: 620px; height: 880px;
+            position: relative;
+            box-shadow: 0 40px 100px rgba(44, 40, 37, 0.35), 
+                        inset 0 0 120px rgba(166, 138, 97, 0.18);
+            border: 1.5px solid var(--border-brown);
+            padding: 60px 45px;
+            display: flex; flex-direction: column; justify-content: space-between;
+            text-align: center; z-index: 10;
+        }
+
+        /* টাইপোগ্রাফি স্টাইল */
+        .established { font-family: 'Anek Bangla', sans-serif; font-size: 14px; letter-spacing: 4px; color: #7D736A; }
+        .main-title { font-size: 68px; color: var(--ink-black); line-height: 1.2; margin-top: 10px; }
+        .ink-red { color: var(--ink-red); }
+        .tagline { font-size: 22px; font-style: italic; color: #5C4A3D; margin: 20px 0; }
+        
+        /* কন্টেন্ট বক্স */
+        .content-box { border: 1px dashed var(--border-brown); padding: 45px 30px; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(4px); }
+        .status-text { font-size: 38px; color: var(--ink-red); margin-bottom: 15px; }
+        .description { font-family: 'Anek Bangla', sans-serif; font-size: 16px; line-height: 2; color: #3D3833; }
+
+        /* কালির প্রগ্রেস অ্যানিমেশন */
+        .ink-progress { width: 220px; height: 3px; background: rgba(166, 138, 97, 0.25); margin: 25px auto 10px; position: relative; overflow: hidden; }
+        .ink-fill { position: absolute; top: 0; left: 0; height: 100%; width: 45%; background: var(--ink-red); animation: flow 3.5s infinite ease-in-out; }
+        
+        @keyframes flow {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(350%); }
+        }
+
+        .studio-credit { font-family: 'Anek Bangla', sans-serif; font-size: 11px; letter-spacing: 2px; color: #999; text-transform: uppercase; margin-top: 15px; }
+        .studio-link { color: var(--ink-red); font-weight: bold; text-decoration: none; border-bottom: 1px solid var(--ink-red); }
+
+        /* মোবাইল রেসপন্সিভ */
+        @media (max-width: 768px) { body { transform: scale(0.5); } }
+    </style>
 </head>
 <body>
 
-    <svg class="paper-filter" xmlns="http://www.w3.org/2000/svg">
-        <filter id="noise">
-            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/>
-            <feColorMatrix type="matrix" values="1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 0.05 0" />
-        </filter>
-    </svg>
+    <div class="ambient-glow"></div>
 
-    <div id="ambient-light"></div>
-    <div id="ink-particles"></div>
+    <div class="manuscript-card">
+        <header>
+            <p class="established">স্থাপিত ২০২৪</p>
+            <h1 class="main-title">উইলস সাহিত্য <span class="ink-red">ক্লাব</span></h1>
+            <p style="font-size: 32px; margin: 10px 0;">✒️</p>
+            <p class="tagline">"শব্দের ক্যানভাসে স্বপ্নের বুনন"</p>
+        </header>
 
-    <div class="manuscript-container">
-        
-        <div class="vintage-border top">
-            <svg viewBox="0 0 500 20" preserveAspectRatio="none">
-                <path d="M0,10 Q25,20 50,10 T100,10 T150,10 T200,10 T250,10 T300,10 T350,10 T400,10 T450,10 T500,10" fill="none" stroke="#5c3a21" stroke-width="2" opacity="0.5"/>
-            </svg>
-        </div>
-
-        <div class="watermark-poem">
-            <p>বহু দিন ধরে বহু ক্রোশ দূরে<br>বহু ব্যয় করি বহু দেশ ঘুরে<br>দেখিতে গিয়াছি পর্বতমালা<br>দেখিতে গিয়াছি সিন্ধু।</p>
-            <p>দেখা হয় নাই চক্ষু মেলিয়া<br>ঘর হতে শুধু দুই পা ফেলিয়া<br>একটি ধানের শিষের উপরে<br>একটি শিশিরবিন্দু।</p>
-        </div>
-
-        <main class="sahitto-content">
-            <div class="logo-wrapper">
-                <div class="logo-ornament">❦</div>
-                <img src="assets/logo.png" alt="উইলস সাহিত্য ক্লাব লোগো" class="brand-logo">
-                <div class="logo-ornament">❦</div>
-            </div>
-
-            <header class="title-header">
-                <h2 class="established">স্থাপিত ২০২৪</h2>
-                <h1 class="main-title">উইলস সাহিত্য <span class="highlight">ক্লাব</span></h1>
-                
-                <div class="divider-art">
-                    <span class="line"></span>
-                    <span class="icon">✒️</span>
-                    <span class="line"></span>
-                </div>
-                
-                <h3 class="tagline">"শব্দের ক্যানভাসে স্বপ্নের বুনন"</h3>
-            </header>
-
-            <section class="coming-soon-box">
-                <div class="typewriter-container">
-                    <h2 class="status-text">আসিতেছে...</h2>
-                </div>
-                
-                <div class="progress-ornament">
-                    <div class="ink-bar">
-                        <div class="ink-fill"></div>
-                    </div>
-                </div>
-
-                <p class="description">
-                    আমাদের সাহিত্য কাননটি সাজানো হচ্ছে। 
-                    পুরনো দিনের সেই কালির গন্ধ আর নতুন ভাবনার মেলবন্ধন নিয়ে 
-                    খুব শীঘ্রই আমরা উন্মুক্ত করছি আমাদের নতুন পাতা। 
-                    অপেক্ষা করুন এক নতুন ভোরের।
-                </p>
-            </section>
+        <main class="content-box">
+            <h2 class="status-text">আসিতেছে...</h2>
+            <p class="description">
+                আমাদের সাহিত্য কাননটি সাজানো হচ্ছে। পুরনো দিনের সেই কালির গন্ধ আর নতুন ভাবনার মেলবন্ধন নিয়ে খুব শীঘ্রই আমরা উন্মুক্ত করছি আমাদের নতুন পাতা। অপেক্ষা করুন এক নতুন ভোরের।
+            </p>
         </main>
 
-        <div class="vintage-border bottom">
-            <svg viewBox="0 0 500 20" preserveAspectRatio="none">
-                <path d="M0,10 Q25,0 50,10 T100,10 T150,10 T200,10 T250,10 T300,10 T350,10 T400,10 T450,10 T500,10" fill="none" stroke="#5c3a21" stroke-width="2" opacity="0.5"/>
-            </svg>
-        </div>
-
-        <footer class="sahitto-footer">
-            <p class="bangla-copyright">© ২০২৬ উইলস সাহিত্য ক্লাব|সর্বস্বত্ব সংরক্ষিত</p>
-            <div class="credit-box">
-                <span>Designed with passion by</span>
-                <a href="https://www.instagram.com/relaxstudio__" target="_blank" class="studio-link">RelaxStudio</a>
+        <footer>
+            <div class="ink-progress">
+                <div class="ink-fill"></div>
             </div>
+            <p class="studio-credit">
+                Built by <a href="#" class="studio-link">RELAX STUDIO</a>
+            </p>
         </footer>
-
     </div>
 
-    <script src="script.js"></script>
 </body>
 </html>
