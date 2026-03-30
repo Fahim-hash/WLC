@@ -205,6 +205,17 @@ body::before {
     animation: inkFlow 3s infinite ease-in-out;
 }
 
+    /* আগের কোডগুলো থাকবে... */
+    zoom: 75%; /* আধুনিক ব্রাউজারের জন্য সরাসরি জুম */
+    -moz-transform: scale(0.75); /* Firefox-এর জন্য */
+    -moz-transform-origin: 0 0;
+}
+
+/* যদি জুম করার পর কন্টেন্ট একদম উপরে উঠে যায়, তবে নিচেরটি ব্যবহার করো */
+.manuscript-container {
+    transform: scale(0.75);
+    transform-origin: center;
+}
 @keyframes inkFlow {
     0% { left: -50%; }
     100% { left: 100%; }
