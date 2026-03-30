@@ -1,1 +1,112 @@
+@import "tailwindcss";
 
+/* =========================================
+   উইলসহিত্য ক্লাব - ধ্রুপদী সাহিত্য থিম (Vercel Edition v4)
+   Tailwind Integration & 75% Global Scale
+   ========================================= */
+
+@theme {
+  --color-paper-bg: #EAE3D2;
+  --color-paper-light: #F4EFE6;
+  --color-ink-black: #2C2825;
+  --color-ink-red: #8B1E0B;
+  --color-border-brown: #A68A61;
+}
+
+/* 1. Global Setup with Tailwind Utilities */
+@layer base {
+  html, body {
+    @apply w-full h-full m-0 p-0 overflow-hidden;
+    background-color: var(--color-paper-bg);
+  }
+
+  body {
+    @apply flex justify-center items-center relative;
+    /* পুরো ডিসপ্লেকে ৭৫% জুম করার মেইন লজিক */
+    transform: scale(0.75);
+    transform-origin: center center;
+  }
+}
+
+/* 2. Custom Components & Effects */
+@layer components {
+  /* পেপার টেক্সচার */
+  .paper-texture {
+    @apply absolute pointer-events-none z-[-2];
+    width: 200%;
+    height: 200%;
+    background: url('https://www.transparenttextures.com/patterns/rice-paper-2.png');
+    opacity: 0.6;
+  }
+
+  /* লণ্ঠন ইফেক্ট */
+  .ambient-glow {
+    @apply absolute pointer-events-none z-[-1];
+    width: 1200px;
+    height: 1200px;
+    background: radial-gradient(circle, rgba(255,245,215,0.22) 0%, rgba(234,227,210,0) 70%);
+    transform: translate(-50%, -50%);
+  }
+
+  /* মেইন পাণ্ডুলিপি কার্ড */
+  .manuscript-card {
+    @apply relative flex flex-col justify-between text-center z-10 p-[60px_50px] rounded-[4px];
+    background: linear-gradient(145deg, var(--color-paper-light) 0%, #E8DFCA 100%);
+    width: 600px; 
+    height: 850px;
+    box-shadow: 0 40px 100px rgba(44, 40, 37, 0.35), 
+                inset 0 0 120px rgba(166, 138, 97, 0.18);
+    border: 1.5px solid var(--color-border-brown);
+  }
+
+  /* লোগো অ্যানিমেশন */
+  .logo-animated {
+    @apply w-[185px] mx-auto transition-transform duration-500 ease-out;
+    filter: sepia(0.2) contrast(1.1);
+  }
+
+  .logo-animated:hover {
+    @apply scale-105 -translate-y-1;
+  }
+
+  /* কালির প্রগ্রেস বার */
+  .ink-progress {
+    @apply relative w-[240px] h-[3px] mx-auto mt-[30px] mb-[10px] overflow-hidden;
+    background: rgba(166, 138, 97, 0.25);
+  }
+
+  .ink-fill {
+    @apply absolute top-0 left-0 h-full w-[45%] bg-ink-red;
+    box-shadow: 0 0 10px #8B1E0B;
+    animation: inkFlow 3s infinite ease-in-out;
+  }
+}
+
+/* 3. Animations & Utilities */
+@keyframes inkFlow {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
+}
+
+/* ৪. জলছাপ ও ফন্ট সেটিংস */
+.watermark {
+  @apply absolute top-[48%] left-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-6 text-[28px] opacity-[0.08] whitespace-nowrap pointer-events-none select-none;
+  color: var(--color-border-brown);
+  line-height: 2.4;
+}
+
+.main-title {
+  @apply text-[68px] font-medium my-[15px] leading-tight;
+  color: var(--color-ink-black);
+}
+
+.highlight-red {
+  @apply text-ink-red;
+}
+
+/* ৫. মোবাইল রেসপন্সিভ */
+@media (max-width: 768px) {
+  body {
+    transform: scale(0.5);
+  }
+}
