@@ -1,6 +1,7 @@
 /* =========================================
-   উইলসহিত্য ক্লাব - ধ্রুপদী সাহিত্য থিম (V.Final)
-   Fix: Exact Vertical Ratio & Proper 75% Scale
+   উইলসহিত্য ক্লাব - ধ্রুপদী সাহিত্য থিম (V5.Final)
+   Designed by: Relax Studio
+   Fix: Absolute Center Alignment with 75% Scale
    ========================================= */
 
 :root {
@@ -13,23 +14,29 @@
     --font-modern: 'Anek Bangla', sans-serif;
 }
 
+/* 1. Global Setup */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* অতিরিক্ত জায়গা বা স্ক্রলবার বন্ধ */
     background-color: var(--paper-bg);
-    min-height: 100vh;
+}
+
+body {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden; /* স্ক্রলবার পুরোপুরি বন্ধ */
+    justify-content: center; /* হরাইজন্টাল সেন্টার */
+    align-items: center;     /* ভার্টিক্যাল সেন্টার */
+    min-height: 100vh;
     position: relative;
 }
 
-/* ১. ব্যাকগ্রাউন্ড টেক্সচার */
+/* 2. Background Texture */
 body::before {
     content: "";
     position: absolute;
@@ -37,100 +44,124 @@ body::before {
     background: url('https://www.transparenttextures.com/patterns/rice-paper-2.png');
     opacity: 0.6;
     z-index: -2;
+    pointer-events: none;
 }
 
-/* ২. লজিক্যাল স্কেলিং - পুরো ইন্টারফেসকে ৭৫% করা */
+/* 3. Ambient Light (লণ্ঠন ইফেক্ট) */
+#ambient-light {
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(255,245,215,0.2) 0%, rgba(234,227,210,0) 75%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+    transform: translate(-50%, -50%);
+}
+
+/* 4. মেইন কার্ড (পাণ্ডুলিপি) - সেন্টারিং লজিক */
 .manuscript-container {
     background: linear-gradient(135deg, var(--paper-light) 0%, #E8DFCA 100%);
     
-    /* তোমার স্ক্রিনশট অনুযায়ী সরু লম্বা সাইজ */
-    width: 580px; 
-    height: 850px;
+    /* তোমার স্ক্রিনশট অনুযায়ী ডাইমেনশন */
+    width: 600px; 
+    height: 820px;
     
     position: relative;
-    box-shadow: 0 30px 70px rgba(44, 40, 37, 0.3), 
+    box-shadow: 0 30px 80px rgba(44, 40, 37, 0.3), 
                 inset 0 0 100px rgba(166, 138, 97, 0.15);
     border: 1px solid var(--border-brown);
-    padding: 60px 50px;
+    padding: 55px 45px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
+    border-radius: 2px;
     z-index: 1;
 
-    /* স্কেলিং এবং সেন্টারিং */
+    /* ৭৫% স্কেলিং এবং ডিসপ্লে সেন্টার ফিক্স */
     transform: scale(0.75);
-    transform-origin: center;
+    transform-origin: center center; /* একদম মাঝখান থেকে স্কেল হবে */
+    flex-shrink: 0; /* যাতে ফ্লেক্সবক্স এটাকে চ্যাপ্টা না করে */
 }
 
-/* ৩. ওয়াটারমার্ক কবিতা */
+/* 5. Watermark Poetry (জলছাপ) */
 .watermark-poem {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(-8deg);
-    font-size: 24px;
+    transform: translate(-50%, -50%) rotate(-7deg);
+    font-size: 26px;
     line-height: 2.2;
     color: var(--border-brown);
-    opacity: 0.07;
+    opacity: 0.08;
     white-space: nowrap;
     z-index: 0;
     pointer-events: none;
 }
 
-/* ৪. লোগো ফিক্স */
-.brand-logo {
-    width: 170px; /* লোগোকে বক্সের সাথে মানানসই করা */
-    height: auto;
-    margin: 0 auto;
-    filter: sepia(0.2) contrast(1.1);
-    transition: 0.4s ease;
+/* 6. Logo Styling */
+.logo-wrapper {
+    margin-bottom: 20px;
 }
 
-.brand-logo:hover { transform: scale(1.05); }
+.brand-logo {
+    width: 180px; 
+    height: auto;
+    filter: sepia(0.2) contrast(1.1);
+    transition: transform 0.4s ease;
+}
 
-/* ৫. টাইটেল ও সাবটাইটেল */
+.brand-logo:hover {
+    transform: scale(1.05);
+}
+
+/* 7. Typography (উইলসহিত্য ক্লাব) */
 .main-title {
     font-family: var(--font-classic);
-    font-size: 58px;
+    font-size: 62px;
+    font-weight: 500;
     color: var(--ink-black);
-    line-height: 1.1;
-    margin: 15px 0;
+    margin: 10px 0;
 }
 
-.main-title .highlight { color: var(--ink-red); }
+.main-title .highlight {
+    color: var(--ink-red);
+}
 
 .tagline {
-    font-size: 17px;
+    font-size: 19px;
     font-style: italic;
     color: #5C4A3D;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
 
-/* ৬. "আসিতেছে" বক্স */
+/* 8. 'আসিতেছে' বক্স */
 .coming-soon-box {
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px dashed var(--border-brown);
+    background: rgba(255, 255, 255, 0.25);
+    border: 1.2px dashed var(--border-brown);
     padding: 35px 20px;
+    margin-bottom: 10px;
 }
 
 .status-text {
-    font-size: 30px;
+    font-size: 32px;
     color: var(--ink-red);
     margin-bottom: 15px;
+    font-family: var(--font-classic);
 }
 
 .description {
     font-family: var(--font-modern);
-    font-size: 14.5px;
+    font-size: 15px;
     line-height: 1.8;
     color: #3D3833;
 }
 
-/* ৭. কালির প্রগ্রেস বার */
+/* 9. কালির প্রগ্রেস বার */
 .ink-bar {
-    width: 60%;
-    height: 2px;
+    width: 200px;
+    height: 2.5px;
     background: rgba(166, 138, 97, 0.2);
     margin: 0 auto 20px;
     position: relative;
@@ -139,45 +170,42 @@ body::before {
 
 .ink-fill {
     position: absolute;
-    top: 0; left: 0; height: 100%; width: 50%;
+    top: 0; left: 0; height: 100%; width: 40%;
     background: var(--ink-red);
     animation: inkFlow 3s infinite linear;
 }
 
 @keyframes inkFlow {
     0% { transform: translateX(-100%); }
-    100% { transform: translateX(200%); }
+    100% { transform: translateX(250%); }
 }
 
-/* ৮. ফুটার ক্রেডিট (Relax Studio) */
+/* 10. Footer Credit */
 .sahitto-footer {
-    margin-top: 20px;
     border-top: 1px solid rgba(166, 138, 97, 0.15);
-    padding-top: 15px;
+    padding-top: 20px;
 }
 
 .studio-link {
     color: var(--ink-red);
     font-weight: bold;
     text-decoration: none;
-    font-size: 11px;
-    letter-spacing: 1.5px;
+    font-size: 12px;
+    letter-spacing: 1px;
     border-bottom: 1px solid var(--ink-red);
 }
 
-/* ৯. কালির কণা */
+/* 11. Ink Particles */
 .particle {
     position: absolute;
-    background-color: var(--ink-black);
+    background-color: var(--ink-red);
     border-radius: 50%;
-    opacity: 0.3;
     pointer-events: none;
 }
 
-/* ১০. রেসপন্সিভ */
-@media (max-width: 600px) {
+/* 12. Mobile Fix */
+@media (max-width: 768px) {
     .manuscript-container {
-        transform: scale(0.5); /* মোবাইলে জুম ফিট করা */
-        width: 95vw;
+        transform: scale(0.5); /* মোবাইলে জুম আরও কমিয়ে মাঝখানে রাখা */
     }
 }
