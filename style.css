@@ -1,7 +1,6 @@
 /* =========================================
-   উইলসহিত্য ক্লাব - ধ্রুপদী সাহিত্য থিম (Official V4)
-   Designed by: Relax Studio
-   Fix: Exact Vertical Layout & 75% Scale
+   উইলসহিত্য ক্লাব - ধ্রুপদী সাহিত্য থিম (V.Final)
+   Fix: Exact Vertical Ratio & Proper 75% Scale
    ========================================= */
 
 :root {
@@ -14,29 +13,23 @@
     --font-modern: 'Anek Bangla', sans-serif;
 }
 
-/* 1. Reset & Setup */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html, body {
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden; /* ডানে-বামে স্ক্রল বন্ধ */
-    background-color: var(--paper-bg);
-}
-
 body {
-    display: flex;
-    justify-content: center; /* মাঝখানে রাখার জন্য */
-    align-items: center;
+    background-color: var(--paper-bg);
     min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* স্ক্রলবার পুরোপুরি বন্ধ */
     position: relative;
 }
 
-/* 2. Paper Texture */
+/* ১. ব্যাকগ্রাউন্ড টেক্সচার */
 body::before {
     content: "";
     position: absolute;
@@ -44,128 +37,122 @@ body::before {
     background: url('https://www.transparenttextures.com/patterns/rice-paper-2.png');
     opacity: 0.6;
     z-index: -2;
-    pointer-events: none;
 }
 
-/* 3. Ambient Light (লণ্ঠন ইফেক্ট) */
-#ambient-light {
-    position: absolute;
-    width: 800px;
-    height: 800px;
-    background: radial-gradient(circle, rgba(255,245,215,0.2) 0%, rgba(234,227,210,0) 75%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: -1;
-    transform: translate(-50%, -50%);
-}
-
-/* 4. মেইন কন্টেইনার (পাণ্ডুলিপি) - জুম লজিক এখানে */
+/* ২. লজিক্যাল স্কেলিং - পুরো ইন্টারফেসকে ৭৫% করা */
 .manuscript-container {
     background: linear-gradient(135deg, var(--paper-light) 0%, #E8DFCA 100%);
     
-    /* তোমার স্ক্রিনশট অনুযায়ী পারফেক্ট সাইজ */
-    width: 650px; 
+    /* তোমার স্ক্রিনশট অনুযায়ী সরু লম্বা সাইজ */
+    width: 580px; 
     height: 850px;
     
     position: relative;
-    box-shadow: 0 25px 60px rgba(44, 40, 37, 0.25), 
-                inset 0 0 80px rgba(166, 138, 97, 0.15);
+    box-shadow: 0 30px 70px rgba(44, 40, 37, 0.3), 
+                inset 0 0 100px rgba(166, 138, 97, 0.15);
     border: 1px solid var(--border-brown);
-    padding: 60px 45px;
+    padding: 60px 50px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
-    border-radius: 2px;
     z-index: 1;
 
-    /* স্কেলিং লজিক (৭৫%) */
+    /* স্কেলিং এবং সেন্টারিং */
     transform: scale(0.75);
     transform-origin: center;
 }
 
-/* 5. Watermark Poetry (জলছাপ) */
+/* ৩. ওয়াটারমার্ক কবিতা */
 .watermark-poem {
     position: absolute;
-    top: 45%;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(-6deg);
-    font-size: 26px;
+    transform: translate(-50%, -50%) rotate(-8deg);
+    font-size: 24px;
     line-height: 2.2;
     color: var(--border-brown);
-    opacity: 0.08;
+    opacity: 0.07;
     white-space: nowrap;
     z-index: 0;
     pointer-events: none;
 }
 
-/* 6. Logo Styling */
-.logo-wrapper {
-    position: relative;
-    z-index: 10;
-    margin-bottom: 20px;
-}
-
+/* ৪. লোগো ফিক্স */
 .brand-logo {
-    width: 180px; /* স্ক্রিনশট অনুযায়ী পারফেক্ট সাইজ */
+    width: 170px; /* লোগোকে বক্সের সাথে মানানসই করা */
     height: auto;
+    margin: 0 auto;
     filter: sepia(0.2) contrast(1.1);
-    transition: transform 0.4s ease;
+    transition: 0.4s ease;
 }
 
-.brand-logo:hover {
-    transform: scale(1.05);
-}
+.brand-logo:hover { transform: scale(1.05); }
 
-/* 7. Typography (উইলসহিত্য ক্লাব) */
+/* ৫. টাইটেল ও সাবটাইটেল */
 .main-title {
     font-family: var(--font-classic);
-    font-size: 60px;
-    font-weight: 500;
+    font-size: 58px;
     color: var(--ink-black);
-    margin: 10px 0;
-    line-height: 1.2;
+    line-height: 1.1;
+    margin: 15px 0;
 }
 
-.main-title .highlight {
-    color: var(--ink-red);
-}
+.main-title .highlight { color: var(--ink-red); }
 
 .tagline {
-    font-size: 18px;
+    font-size: 17px;
     font-style: italic;
     color: #5C4A3D;
-    margin-bottom: 30px;
-    opacity: 0.9;
+    margin-bottom: 25px;
 }
 
-/* 8. আসিতেছে... বক্স */
+/* ৬. "আসিতেছে" বক্স */
 .coming-soon-box {
     background: rgba(255, 255, 255, 0.2);
-    border: 1.2px dashed var(--border-brown);
-    padding: 35px 25px;
-    margin-top: 20px;
+    border: 1px dashed var(--border-brown);
+    padding: 35px 20px;
 }
 
 .status-text {
-    font-size: 32px;
+    font-size: 30px;
     color: var(--ink-red);
     margin-bottom: 15px;
-    font-family: var(--font-classic);
 }
 
 .description {
     font-family: var(--font-modern);
-    font-size: 15px;
+    font-size: 14.5px;
     line-height: 1.8;
     color: #3D3833;
-    padding: 0 10px;
 }
 
-/* 9. Footer (Relax Studio Credit) */
+/* ৭. কালির প্রগ্রেস বার */
+.ink-bar {
+    width: 60%;
+    height: 2px;
+    background: rgba(166, 138, 97, 0.2);
+    margin: 0 auto 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.ink-fill {
+    position: absolute;
+    top: 0; left: 0; height: 100%; width: 50%;
+    background: var(--ink-red);
+    animation: inkFlow 3s infinite linear;
+}
+
+@keyframes inkFlow {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(200%); }
+}
+
+/* ৮. ফুটার ক্রেডিট (Relax Studio) */
 .sahitto-footer {
     margin-top: 20px;
-    border-top: 1px solid rgba(166, 138, 97, 0.2);
+    border-top: 1px solid rgba(166, 138, 97, 0.15);
     padding-top: 15px;
 }
 
@@ -173,25 +160,24 @@ body::before {
     color: var(--ink-red);
     font-weight: bold;
     text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 1.5px;
     border-bottom: 1px solid var(--ink-red);
-    font-size: 12px;
-    letter-spacing: 1px;
 }
 
-/* 10. Ink Particles (কালির কণা) */
+/* ৯. কালির কণা */
 .particle {
     position: absolute;
-    background-color: var(--ink-red);
+    background-color: var(--ink-black);
     border-radius: 50%;
-    opacity: 0.4;
+    opacity: 0.3;
     pointer-events: none;
-    z-index: 99;
 }
 
-/* 11. Mobile Responsive */
-@media (max-width: 768px) {
+/* ১০. রেসপন্সিভ */
+@media (max-width: 600px) {
     .manuscript-container {
-        transform: scale(0.55); /* মোবাইলে জুম আরও কমিয়ে ফিট করা হয়েছে */
-        width: 90vw;
+        transform: scale(0.5); /* মোবাইলে জুম ফিট করা */
+        width: 95vw;
     }
 }
