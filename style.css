@@ -1,5 +1,7 @@
 /* =========================================
-   উইলসহিত্য ক্লাব - ধ্রুপদী সাহিত্য থিম
+   উইলসহিত্য ক্লাব - ধ্রুপদী সাহিত্য থিম (Official)
+   Designed by: Relax Studio
+   Features: 75% Zoom, Manuscript Texture, Ink Red Accents
    ========================================= */
 
 :root {
@@ -10,14 +12,20 @@
     --border-brown: #A68A61;
     --font-classic: 'Tiro Bangla', serif;
     --font-modern: 'Anek Bangla', sans-serif;
+    --shadow-soft: 0 20px 50px rgba(44, 40, 37, 0.2);
+    --shadow-inner: inset 0 0 60px rgba(166, 138, 97, 0.15);
 }
 
+/* 1. Global Resets */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
+/* 2. Body & Zoom Setup */
 body {
     background-color: var(--paper-bg);
     color: var(--ink-black);
@@ -29,21 +37,22 @@ body {
     overflow: hidden;
     position: relative;
     cursor: default;
-    
-    /* ৭৫% জুম ফিক্স */
-    zoom: 75%; /* Chrome, Safari, Edge-এর জন্য */
+
+    /* তোমার রিকোয়েস্ট অনুযায়ী ৭৫% জুম */
+    zoom: 75%; 
 }
 
-/* Firefox-এর জন্য আলাদা ফিক্স (কারণ Firefox zoom সাপোর্ট করে না) */
+/* Firefox Zoom Fix */
 @-moz-document url-prefix() {
     body {
         transform: scale(0.75);
         transform-origin: top center;
-        height: 133.33vh; /* স্কেল করার পর গ্যাপ পূরণের জন্য */
+        height: 133.33vh;
+        width: 133.33vw;
     }
 }
 
-/* পুরনো কাগজের নয়েজ বা টেক্সচার */
+/* 3. Paper Texture Overlay */
 body::before {
     content: "";
     position: absolute;
@@ -54,105 +63,264 @@ body::before {
     pointer-events: none;
 }
 
-/* Ambient Light Effect */
+/* 4. Ambient Effects */
+.paper-filter {
+    position: absolute;
+    width: 0; height: 0;
+    pointer-events: none;
+}
+
 #ambient-light {
     position: absolute;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(255,245,215,0.15) 0%, rgba(234,227,210,0) 70%);
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(255,245,215,0.18) 0%, rgba(234,227,210,0) 75%);
     border-radius: 50%;
     pointer-events: none;
     z-index: -1;
     transform: translate(-50%, -50%);
-    transition: transform 0.1s ease-out;
+    transition: transform 0.15s ease-out;
 }
 
-/* Main Container (পাণ্ডুলিপি) */
+/* 5. Main Manuscript Container */
 .manuscript-container {
     background: linear-gradient(135deg, var(--paper-light) 0%, #E8DFCA 100%);
     width: 90vw;
-    max-width: 850px;
-    height: 85vh;
-    min-height: 600px;
+    max-width: 880px;
+    height: 88vh;
+    min-height: 650px;
     position: relative;
-    box-shadow: 
-        0 20px 50px rgba(44, 40, 37, 0.2),
-        inset 0 0 60px rgba(166, 138, 97, 0.15);
+    box-shadow: var(--shadow-soft), var(--shadow-inner);
     border: 1px solid var(--border-brown);
-    padding: 40px;
+    padding: 50px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden;
-    border-radius: 2px;
-    z-index: 1;
+    border-radius: 3px;
+    perspective: 1000px; /* For the subtle tilt effect */
 }
 
-/* Watermark Poem */
+/* 6. Watermark Poetry Section */
 .watermark-poem {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(-5deg);
-    font-size: 28px;
-    line-height: 1.8;
+    transform: translate(-50%, -50%) rotate(-7deg);
+    font-size: 30px;
+    line-height: 2;
     color: var(--border-brown);
-    opacity: 0.1;
+    opacity: 0.08;
     text-align: center;
     pointer-events: none;
     white-space: nowrap;
     z-index: 0;
+    user-select: none;
 }
 
-/* Logo Styling */
+/* 7. Content Styles */
+.sahitto-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 35px;
+}
+
 .brand-logo {
     width: 100%;
-    max-width: 220px;
+    max-width: 240px;
     height: auto;
-    filter: sepia(0.4) contrast(1.1) brightness(0.9);
-    transition: transform 0.4s ease;
+    filter: sepia(0.3) contrast(1.1) brightness(0.95);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Typography & Other Elements */
+.brand-logo:hover {
+    transform: scale(1.03) translateY(-5px);
+    filter: sepia(0) contrast(1.2);
+}
+
+.logo-ornament {
+    font-size: 32px;
+    color: var(--ink-red);
+    opacity: 0.6;
+    animation: pulseOrnament 3s infinite ease-in-out;
+}
+
+@keyframes pulseOrnament {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.1); }
+}
+
+/* 8. Typography Masterclass */
+.established {
+    font-family: var(--font-modern);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #7D736A;
+    margin-bottom: 8px;
+}
+
 .main-title {
-    font-size: clamp(45px, 8vw, 75px);
+    font-size: clamp(48px, 9vw, 82px);
+    font-weight: 500;
     color: var(--ink-black);
+    line-height: 1.1;
+    margin-bottom: 10px;
 }
 
-.main-title .highlight { color: var(--ink-red); }
+.main-title .highlight {
+    color: var(--ink-red);
+    position: relative;
+    display: inline-block;
+}
 
+.divider-art {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0 25px;
+}
+
+.divider-art .line {
+    width: 100px;
+    height: 1.2px;
+    background: linear-gradient(to right, transparent, var(--border-brown), transparent);
+}
+
+.tagline {
+    font-size: 22px;
+    font-style: italic;
+    color: #5C4A3D;
+    margin-bottom: 45px;
+    font-weight: 300;
+}
+
+/* 9. Coming Soon Section */
 .coming-soon-box {
-    background: rgba(255, 255, 255, 0.3);
-    border: 1px dashed var(--border-brown);
-    padding: 30px;
-    max-width: 600px;
+    background: rgba(255, 255, 255, 0.4);
+    border: 1.5px dashed var(--border-brown);
+    padding: 35px;
+    max-width: 620px;
     margin: 0 auto;
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(4px);
+    border-radius: 4px;
+    transition: transform 0.3s ease;
 }
 
-@keyframes inkFlow {
-    0% { left: -50%; }
-    100% { left: 100%; }
+.coming-soon-box:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.status-text {
+    font-size: 36px;
+    color: var(--ink-red);
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.ink-bar {
+    width: 70%;
+    height: 2.5px;
+    background: rgba(166, 138, 97, 0.2);
+    margin: 0 auto 25px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
 }
 
 .ink-fill {
     position: absolute;
-    top: 0; left: 0; height: 100%; width: 50%;
-    background: var(--ink-red);
-    animation: inkFlow 3s infinite ease-in-out;
+    top: 0; left: 0; height: 100%; width: 40%;
+    background: linear-gradient(90deg, transparent, var(--ink-red), transparent);
+    animation: inkFlow 2.5s infinite linear;
 }
 
-/* Footer & Credits */
+@keyframes inkFlow {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(300%); }
+}
+
+.description {
+    font-family: var(--font-modern);
+    font-size: 17px;
+    line-height: 1.9;
+    color: #3D3833;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* 10. Footer & Credits (Relax Studio) */
+.vintage-border { width: 100%; height: 25px; opacity: 0.6; }
+
+.sahitto-footer {
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    margin-top: 30px;
+    border-top: 1px solid rgba(166, 138, 97, 0.25);
+    padding-top: 20px;
+}
+
+.bangla-copyright {
+    font-family: var(--font-modern);
+    font-size: 15px;
+    color: #665C54;
+    margin-bottom: 10px;
+}
+
+.credit-box {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 11px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
 .studio-link {
     color: var(--ink-red);
-    font-weight: bold;
+    font-weight: 700;
     text-decoration: none;
-    text-transform: uppercase;
-    border-bottom: 1px dotted var(--ink-red);
+    border-bottom: 1.5px solid transparent;
+    transition: all 0.3s ease;
+    margin-left: 4px;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-    body { zoom: 100%; } /* মোবাইলে জুম ডিফল্ট রাখাই ভালো */
-    .manuscript-container { padding: 30px 15px; height: 95vh; }
+.studio-link:hover {
+    color: var(--ink-black);
+    border-bottom-color: var(--ink-black);
+}
+
+/* 11. Interactive Particles */
+.particle {
+    position: absolute;
+    pointer-events: none;
+    z-index: 9999;
+    filter: blur(0.5px);
+}
+
+/* 12. Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+    body { zoom: 90%; }
+    .manuscript-container {
+        padding: 30px 20px;
+        height: 92vh;
+        width: 95vw;
+    }
+    .main-title { font-size: 50px; }
+    .tagline { font-size: 18px; }
+    .coming-soon-box { padding: 20px; }
 }
